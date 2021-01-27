@@ -1,0 +1,12 @@
+version: '3'
+services:
+  api:
+    image: node:12.14.1
+    env_file: .env
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: node --inspect=0.0.0.0:5858 bin/www
+    ports:
+      - 3000:3000
+      - 5858:5858

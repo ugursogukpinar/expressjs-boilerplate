@@ -1,0 +1,10 @@
+node_modules
+_run
+
+.DS_Store
+.env
+.vscode
+docker-compose.override.yml
+/node_modules
+/_run
+

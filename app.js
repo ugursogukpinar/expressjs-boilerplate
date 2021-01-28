@@ -5,8 +5,8 @@ const ApplicationError = require('./errors/ApplicationError');
 const config = require('./config.js');
 const logger = require('./utils/logger');
 const middlewareHandler = require('./handlers/middlewareHandler');
-const requestLogger = require('./middleware/requestLogger');
-const responseHelpers = require('./middleware/responseHelpers');
+const requestLogger = require('./middlewares/requestLogger');
+const responseHelpers = require('./middlewares/responseHelpers');
 
 const makeApp = async () => {
   const app = express();

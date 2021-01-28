@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ApplicationError = require('./errors/ApplicationError');
 
-const config = require('./config.js');
+const config = require('./configs');
 const logger = require('./utils/logger');
 const middlewareHandler = require('./handlers/middlewareHandler');
 const requestLogger = require('./middlewares/requestLogger');
 const responseHelpers = require('./middlewares/responseHelpers');
+const loaders = require('./loaders');
 
 const makeApp = async () => {
   const app = express();
@@ -16,7 +17,7 @@ const makeApp = async () => {
   app.use(middlewareHandler(requestLogger));
   app.use(middlewareHandler(responseHelpers));
 
-  app.use('/api/index', require('./controllers/Index'));
+  await loaders(app);
 
   app.use((req, res, next) => {
     const err = new ApplicationError('URL Not Found');
@@ -38,7 +39,7 @@ const makeApp = async () => {
 
     return res.error({
       message: err.message,
-      stack: config.env !== 'production' ? err.stack : null,
+      stack: config.env !== 'production' ? err.stack : undefined,
       type: err.type || 'ERROR',
       meta: err.meta
     }, err.statusCode);

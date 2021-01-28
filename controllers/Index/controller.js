@@ -1,9 +1,10 @@
 const IndexController = {
-  helloWorld: async (req, res) => {
+  helloWorld: async (req) => {
     const { name } = req.inputs;
-    return res.ok({
+
+    return {
       message: `Hello, ${name}!`
-    });
+    };
   }
 };
 

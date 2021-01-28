@@ -5,12 +5,14 @@ module.exports = (action) => {
     logger.debug(`Action fired: ${action.name}`);
     const start = new Date();
     Promise.resolve(action(req, res, next))
-      .then(() => {
+      .then((data) => {
         const duration = new Date() - start;
 
         logger.debug(`Action response sent: ${action.name} `, {
           duration: `${duration}ms`
         });
+
+        return res.ok(data);
       })
       .catch((err) => {
         if (err.type !== 'APP_ERROR') {

@@ -7,10 +7,9 @@
 require('dotenv').config();
 const http = require('http');
 
-const config = require('../config.js');
+const config = require('../configs');
 const { makeApp } = require('../app.js');
 const logger = require('../utils/logger');
-const loaders = require('../loaders');
 
 (async () => {
   const app = await makeApp();
@@ -18,7 +17,6 @@ const loaders = require('../loaders');
   app.set('port', port);
   const server = http.createServer(app);
 
-  await loaders();
   server.listen(port, (err) => {
     if (err) {
       return logger.error(err.message, err);

@@ -1,6 +1,5 @@
 const express = require('express');
-const isValid = require('../../middlewares/isValid');
-const errorHandler = require('../../handlers/errorHandler');
+const actionHandler = require('../../handlers/actionHandler');
 const middlewareHandler = require('../../handlers/middlewareHandler');
 
 const controller = require('./controller');
@@ -9,6 +8,6 @@ const validator = require('./validator');
 
 const router = express.Router();
 
-router.get('/hello-world', middlewareHandler(isValid(validator.helloWorld)), errorHandler(controller.helloWorld));
+router.get('/hello-world', middlewareHandler(validator.helloWorld), actionHandler(controller.helloWorld));
 
 module.exports = router;

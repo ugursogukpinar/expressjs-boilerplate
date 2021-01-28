@@ -1,6 +1,6 @@
-const AppError = require('./ApplicationError');
+const ApplicationError = require('./ApplicationError');
 
-class UnauthorizedError extends AppError {
+class UnauthorizedError extends ApplicationError {
   constructor() {
     super('Unauthorized');
 

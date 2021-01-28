@@ -32,8 +32,7 @@ const loaders = require('../loaders');
 /**
  * Normalize a port into a number, string, or false.
  */
-
-function normalizePort(val) {
+const normalizePort = (val) => {
   const normalizedPort = parseInt(val, 10);
 
   if (isNaN(normalizedPort)) {
@@ -47,4 +46,4 @@ function normalizePort(val) {
   }
 
   return false;
-}
+};

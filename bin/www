@@ -19,9 +19,13 @@ const loaders = require('../loaders');
   const server = http.createServer(app);
 
   await loaders();
-  server.listen(port);
-  server.on('error', (err) => onError(server, err));
-  server.on('listening', () => onListening(server));
+  server.listen(port, (err) => {
+    if (err) {
+      return logger.error(err.message, err);
+    }
+
+    return logger.info(`Server listening on port ${port}`);
+  });
 })();
 
 
@@ -43,43 +47,4 @@ function normalizePort(val) {
   }
 
   return false;
-}
-
-/**
- * Event listener for HTTP server "error" event.
- */
-
-function onError(server, error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? `pipe ${addr}`
-    : `port ${addr.port}`;
-
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      logger.error(`${bind} requires elevated privileges`);
-      return process.exit(1);
-    case 'EADDRINUSE':
-      logger.error(`${bind} is already in use`);
-      return process.exit(1);
-    default:
-      throw error;
-  }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening(server) {
-  const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? `pipe ${addr}`
-    : `port ${addr.port}`;
-  logger.debug(`Listening on ${bind}`);
 }

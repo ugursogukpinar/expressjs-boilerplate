@@ -1,5 +1,5 @@
 const express = require('express');
-const isValid = require('../../middleware/isValid');
+const isValid = require('../../middlewares/isValid');
 const errorHandler = require('../../handlers/errorHandler');
 const middlewareHandler = require('../../handlers/middlewareHandler');
 
